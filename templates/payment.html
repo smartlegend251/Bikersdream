@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+  font-family: Arial;
+  font-size: 17px;
+  padding: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  margin: 0 -16px;
+}
+
+.col-25 {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+}
+
+.col-50 {
+  -ms-flex: 50%; /* IE10 */
+  flex: 50%;
+}
+
+.col-75 {
+  -ms-flex: 75%; /* IE10 */
+  flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+  padding: 0 16px;
+}
+
+.container {
+  background-color: #f2f2f2;
+  padding: 5px 20px 15px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+}
+
+input[type=text] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.icon-container {
+  margin-bottom: 20px;
+  padding: 7px 0;
+  font-size: 24px;
+}
+
+.btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+
+.btn1 {
+ 
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+  transition: .7s;
+  background-color: #867878;
+  color: black ;
+}
+
+.btn1:hover {
+  background-color: #000000;
+  color: white;
+}
+
+
+
+a {
+  color: #2196F3;
+}
+
+hr {
+  border: 1px solid lightgrey;
+}
+
+span.price {
+  float: right;
+  color: grey;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column-reverse;
+  }
+  .col-25 {
+    margin-bottom: 20px;
+  }
+}
+</style>
+
+
+</head>
+<body>
+
+<h2>Payment Page</h2>
+
+<div class="row">
+  <div class="col-75">
+    <div class="container">
+      <form action="/updatebooking" method="post">
+      <input type="hidden" name="paymentid" >
+        <div class="row">
+          <div class="col-50">
+            <h3>Billing Address</h3>
+            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+            <input type="text" id="fname" name="fullname" placeholder=" Your Full Name" required>
+            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+            <input type="email" id="email" name="email" placeholder="name@example.com" required>
+
+ <label for="email"><i class="fa fa-envelope"></i>Aadhar Numberl</label>
+            <input type="text" id="email" name="aadhar" placeholder="111122223333" required maxlength="12" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+
+ <label for="email"><i class="fa fa-envelope"></i> Driving Licence Number</label>
+            <input type="text" id="email" name="driving" placeholder="KA0520200000000" required maxlength="15">
+           
+           
+            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+            <input type="text" id="adr" name="address" placeholder="lalbag main gate ">
+            <label for="city"><i class="fa fa-institution"></i> City</label>
+
+
+            <select id="cityList" name="city" class="container" style="background-color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  font-size: 15px;">
+              <option value="Delhi">Delhi</option>
+              <option value="Mumbai">Mumbai</option>
+              <option selected value="Bangalore">Bangalore</option>
+              <option value="Hyderabad">Hyderabad</option>
+              <option value="Ahmedabad">Ahmedabad</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Kolkata">Kolkata</option>
+              <option value="Surat">Surat</option>
+              <option value="Pune">Pune</option>
+              <option value="Jaipur">Jaipur</option>
+              <option value="other">Other</option>
+            </select>
+            <input type="text" id="cityInput" style="display: none;background-color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  font-size: 15px;">
+            <script>
+              var cityList = document.getElementById("cityList");
+              var cityInput = document.getElementById("cityInput");
+            
+              cityList.addEventListener("change", function() {
+                if (cityList.value === "other") {
+                  cityInput.style.display = "inline-block";
+                } else {
+                  cityInput.style.display = "none";
+                }
+              });
+            </script>
+            <!-- <input type="text" id="city" name="city" placeholder="New York"> -->
+<br><br>
+            <div class="row">
+              <div class="col-50">
+                <label for="state">State</label>
+                <select name="state" id="list" class="container" style="background-color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  font-size: 15px;">
+                  <option value="">Select State</option>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                  <option value="Assam">Assam</option>
+                  <option value="Bihar">Bihar</option>
+                  <option value="Chhattisgarh">Chhattisgarh</option>
+                  <option value="Goa">Goa</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Himachal Pradesh">Himachal Pradesh</option>
+                  <option value="Jharkhand">Jharkhand</option>
+                  <option selected value="Karnataka">Karnataka</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Manipur">Manipur</option>
+                  <option value="Meghalaya">Meghalaya</option>
+                  <option value="Mizoram">Mizoram</option>
+                  <option value="Nagaland">Nagaland</option>
+                  <option value="Odisha">Odisha</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Rajasthan">Rajasthan</option>
+                  <option value="Sikkim">Sikkim</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Tripura">Tripura</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Uttarakhand">Uttarakhand</option>
+                  <option value="West Bengal">West Bengal</option>
+                </select>
+
+                <!-- <input type="text" id="state" name="state" placeholder="NY"> -->
+              </div>
+              <div class="col-50">
+                <label for="zip">Zip</label>
+                <input type="text" id="zip" name="zip" placeholder="560001" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-50">
+            <h3>Payment</h3>
+            <label for="fname">Accepted Cards</label>
+            <div class="icon-container">
+              <i class="fa fa-cc-visa" style="color:navy;"></i>
+              <i class="fa fa-cc-amex" style="color:blue;"></i>
+              <i class="fa fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa fa-cc-discover" style="color:orange;"></i>
+            </div>
+            <label for="cname">Name on Card</label>
+            <input type="text" id="cname" name="cardname" placeholder="Mueez Ur Rahman" required>
+            <label for="ccnum">Credit card number</label>
+            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required maxlength="16" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+            <label for="expmonth">Exp Month</label>
+            <!-- <input type="text" id="expmonth" name="expmonth" placeholder="February"> -->
+            <select name="expmonth" id="expmonth" class="container" style="background-color: white;">
+              
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+             
+              
+            </select>
+
+            <br><br>
+            <div class="row">
+              <div class="col-50">
+                <label for="expyear">Exp Year</label>
+                <!-- <input type="text" id="expyear" name="expyear" placeholder="2030"> -->
+                <select id="expyear" name="expyear" class="container" style="background-color: white; width: 100%;">
+                  <option value="2018">2018</option>
+                  <option value="2019">2019</option>
+                  <option value="2020">2020</option>
+                  <option value="2021">2021</option>
+                  <option value="2022">2022</option>
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                  <option value="2029">2029</option>
+                  <option selected value="2030">2030</option>
+                  <option value="2031">2031</option>
+                  <option value="2032">2032</option>
+                  <option value="2033">2033</option>
+                  <option value="2034">2034</option>
+                  <option value="2035">2035</option>
+                  <option value="2036">2036</option>
+                  <option value="2037">2037</option>
+                  <option value="2038">2038</option>
+                  <option value="2039">2039</option>
+                  <option value="2040">2040</option>
+                  <option value="2041">2041</option>
+                  <option value="2042">2042</option>
+                  <option value="2043">2043</option>
+                  <option value="2044">2044</option>
+                  <option value="2045">2045</option>
+                  <option value="2046">2046</option>
+                  <option value="2047">2047</option>
+                  <option value="2048">2048</option>
+                  <option value="2049">2049</option>
+                  <option value="2050">2050</option>
+                </select>
+              </div>
+              <div class="col-50">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" placeholder="352" required maxlength="3" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <label>
+          <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+        </label>
+       
+      
+    </div>
+  </div>
+  <div class="col-25">
+    <div class="container">
+      
+      {% for row in booking %}
+      
+      <table>
+        
+        <tr>
+          <th>Bike Name</th>
+          <th>Duration</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>edit</th>
+
+        </tr>
+        
+        <div>
+        <tr>
+          <td>{{row.2}}</td>
+          <td >{{row.3}}</td>
+          <td >{{row.4}}</td>
+          <td>{{row.5}}</td>
+          <td><a href="/deletebooking/{{row.0}}" ><button>Delete</button></a></td>
+
+          <!-- <input type="hidden" name="Bikename" value="{{row.4}}"> -->
+          
+        </tr>
+       </div>
+      </table>
+      <p>Total <span class="price" style="color:black"><b>{{row.4}} ₹</b></span></p>
+      <input type="text" name="status" value="successful" hidden readonly>
+      <input type="submit" value="Continue to {{row.4}} ₹" class="btn">
+
+      {% endfor %}
+      
+      </form>
+    </div>
+  </div>
+</div>
+<a href="/home"> <button class="btn1"> Go Back </button></a>
+</body>
+</html>

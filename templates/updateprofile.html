@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Update profile</title>
+        <link rel="stylesheet"  href="../static/css/style01.css" type="text/css">
+        <body>
+            <div class="signupbox">
+                <!-- <img src="../static/login.png" class="login"> -->
+                <!-- <h1>Sign-Up Here</h1> -->
+                <h1>Update Your Profile</h1>
+                <form action="" method="post">
+                    {% for x in data %}
+                    <p>Enter Full Name</p>
+                    <input type="text" name="fname" value="{{x[1]}}" placeholder="Enter Full Name" required>
+                    <p>Enter Username</p>
+                    <input type="text" name="uname" value="{{x[2]}}" placeholder="Enter User Name"required>
+                    <p>Enter Your Driving Licence</p>
+                    <input type="text" name="dl" value="{{x[4]}}" placeholder=" KA01 0123456789">
+                    <p>Enter Your Aadhar Number</p>
+                    <input type="text" name="an" value="{{x[5]}}" placeholder="1234-5678-9123">
+                    <p>Address</p>
+                    <input type="text" name="add"  value="{{x[6]}}"placeholder="#12 4th Cross JC">
+                    <p>City</p>
+                    <input type="text" name="ct"value="{{x[7]}}" placeholder="Bangalore">
+                    <p>State</p>
+                    <input type="text" name="st" value="{{x[8]}}"placeholder="Karnataka">
+                    <p>Zip</p>
+                    <input type="text" name="zp" value="{{x[9]}}"placeholder="560001">
+		<!-- <p>Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one special character.</p> -->
+
+		<!-- <label for="confirm-password">Confirm password:</label> -->
+                    <!-- <input type="password" name="password" placeholder="Enter password 8-16" required> -->
+                    {%endfor%}
+                    
+                    <input type="Submit" name="" value="Update">
+                   
+
+
+
+
+                </form>
+                
+            </div>
+                  <style>
+                    body{
+                        background-image: url({{url_for('static', filename="bg/background.jpg")}});
+                    }
+
+                </style>
+        </body>
+    </head>
+</html>

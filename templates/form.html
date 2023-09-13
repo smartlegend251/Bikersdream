@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Addup</title>
+  <link rel="stylesheet" href="/static/css/formup.css">
+
+ 
+</head>
+
+<body>
+<style>
+   .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        
+        .navbar a {
+            float: left;
+            color: #fff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        
+        .active {
+            background-color: #4CAF50;
+            color: white;
+        }
+</style>
+  <div class="navbar">
+    <a  href="{{ url_for('adminmain')}}">Admin Panel</a>
+    <a class="active" href="{{url_for('form')}}">Bike Form Admin Panel</a>
+    <a href="{{url_for('bikeprofile')}}">Bike Form Bike info</a>
+</div>
+
+
+
+
+
+  <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="generateNumber()">
+  <div class="container">
+    <div id="dropArea"  class="drop-area">
+      <h1 for="fileInput">Drag and Drop Image</h1>
+      <p>Drag and drop an image file here or click to browse.</p>
+      <input type="file" id="fileInput" accept="image/*" name="image" required>
+    </div>
+  
+    <div id="preview" class="preview">
+      <img id="previewImage" src="#" alt="Preview">
+    </div>
+  </div>
+
+  
+    <table border="1" >
+      <tr>
+        <th colspan="2" style="text-align: center;">Bike Addup</th>
+      </tr>
+      <tr style="display: none;">
+        <th>Bike ID</th>
+        <td><input type="text" id="numberInput" name="unique_id" readonly></td>
+      </tr>
+      <tr>
+        <th>Bike Name:</th>
+        <td><input type="text" name="name" id="" required></td>
+      </tr>
+      <tr>
+        <th>Bike Type:</th>
+        <td><select name="types" required>
+          <option value="">--Select--</option>
+  <option value="sport">Sport Bike</option>
+  <option value="cruiser">Cruiser</option>
+  <option value="touring">Touring</option>
+  <option value="naked">Naked Bike</option>
+  <option value="dual_sport">Dual Sport</option>
+  <option value="adventure">Adventure Bike</option>
+  <option value="scooter">Scooter</option>
+  <option value="moped">Moped</option>
+  <option value="off_road">Off-Road</option>
+  <option value="electric">Electric Bike</option>
+</select>
+</td>
+      </tr>
+      <tr>
+        <th>Availability:</th>
+        <td><select name="availability" id="availability">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select></td>
+      </tr>
+      <tr>
+        <th>Bike Rate (per Hour):</th>
+        <td><input type="number" name="rate" value="50" max="500"></td>
+      </tr>
+      <tr>
+        <th>Bike Fuel Type:</th>
+        <td>
+          <select name="fueltype" id="fuel">
+            <option value="Petrol">Petrol</option>
+            <option value="Diesel">Diesel</option>
+            <option value="Electric">Electric</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th>Bike Displacement CC:</th>
+        <td><select name="bike_cc">
+          <option value="100">100 cc</option>
+          <option value="125">125 cc</option>
+          <option selected value="150">150 cc</option>
+          <option value="200">200 cc</option>
+          <option value="250">250 cc</option>
+          <option value="300">300 cc</option>
+          <option value="350">350 cc</option>
+          <option value="400">400 cc</option>
+          <option value="450">450 cc</option>
+          <option value="500">500 cc</option>
+          <option value="600">600 cc</option>
+          <option value="750">750 cc</option>
+          <option value="900">900 cc</option>
+          <option value="1000">1000 cc</option>
+          <option value="1200">1200 cc</option>
+          <option value="1300">1300 cc</option>
+          <option value="1400">1400 cc</option>
+          <option value="1500">1500 cc</option>
+        </select>
+        </td>
+      </tr>
+      <tr>
+        <th>Bike Model:</th>
+        <td><select name="model">
+          <option value="2010">2010</option>
+          <option value="2011">2011</option>
+          <option value="2012">2012</option>
+          <option value="2013">2013</option>
+          <option value="2014">2014</option>
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021" selected>2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="1990">1990</option>
+          <option value="1991">1991</option>
+          <option value="1992">1992</option>
+          <option value="1993">1993</option>
+          <option value="1994">1994</option>
+          <option value="1995">1995</option>
+          <option value="1996">1996</option>
+          <option value="1997">1997</option>
+          <option value="1998">1998</option>
+          <option value="1999">1999</option>
+          <option value="2000">2000</option>
+          <option value="2001">2001</option>
+          <option value="2002">2002</option>
+          <option value="2003">2003</option>
+          <option value="2004">2004</option>
+          <option value="2005">2005</option>
+          <option value="2006">2006</option>
+          <option value="2007">2007</option>
+          <option value="2008">2008</option>
+          <option value="2009">2009</option>
+        </select>
+        </td>
+      </tr>
+      
+      <tr>
+        <th>Bike Company:</th>
+        <td>
+
+
+          <select name="bs1" required>
+            <option value="">--select--</option>
+            <option value="honda">Honda</option>
+            <option value="bajaj">Bajaj</option>
+            <option value="yamaha">Yamaha</option>
+            <option value="suzuki">Suzuki</option>
+            <option value="kawasaki">Kawasaki</option>
+            <option value="harley_davidson">Harley-Davidson</option>
+            <option value="bmw">BMW</option>
+            <option value="ducati">Ducati</option>
+            <option value="triumph">Triumph</option>
+            <option value="kTM">KTM</option>
+            <option value="aprilia">Aprilia</option>
+            <option value="piaggio">Piaggio</option>
+            <option value="royal_enfield">Royal Enfield</option>
+            <option value="husqvarna">Husqvarna</option>
+            <option value="mv_agusta">MV Agusta</option>
+            <option value="zero">Zero</option>
+            <option value="indian">Indian</option>
+            <option value="victory">Victory</option>
+            <option value="benelli">Benelli</option>
+            <option value="kymco">KYMCO</option>
+            <option value="vespa">Vespa</option>
+            <option value="piaggio">Piaggio</option>
+            <option value="sym">SYM</option>
+            <option value="gogoro">Gogoro</option>
+            <option value="others">Others</option>
+          </select>
+          
+        
+        
+        
+        </td>
+      </tr>
+      <tr>
+        <th>Helmet (optional):</th>
+        <td>
+          <select name="bs2" id="bs2">
+            <option value="">--select--</option>
+            <option value="Helmet">Yes</option>
+            <option value="0">No</option>
+          </select></td>
+      </tr>
+      <tr>
+        <th>Extra Batteries (optional):</th>
+        <td>
+          <select name="bs3" id="bs3">
+            <option value="">--select--</option>
+            <option value="Batteries">Yes</option>
+            <option value="0">No</option>
+          </select></td>
+      </tr>
+      <tr>
+        <th>Extra Space (optional):</th>
+        <td>
+          <select name="bs4" id="bs4">
+            <option value="">--select--</option>
+            <option value="Extra Space">Yes</option>
+            <option value="0">No</option>
+          </select></td>
+      </tr>
+      <tr>
+        <th> Gadgets (optional):</th>
+        <td>
+          <select name="bs5" id="bs5">
+            <option value="">--select--</option>
+            <option value="Gadgets">Yes</option>
+            <option value="0">No</option>
+          </select></td>
+      </tr>
+      <tr>
+        <th>Bike Description:</th>
+        <td><textarea name="desc" cols="30" rows="10" maxlength="10000"  id="myTextarea" oninput="limitTextarea(event)" required></textarea> <p id="characterCount">Remaining characters: 10000</p></td>
+      </tr>
+      <tr>
+        <th colspan="2"><input type="submit" value="Create"></th>
+      </tr>
+    </table>
+  </form>
+
+  
+  
+
+
+<script src="/static/js/bikeform.js"> 
+</script>
+
+</body>
+</html>

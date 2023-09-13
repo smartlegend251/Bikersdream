@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Motorbike Booking</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/booking.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/payment.css">
+  </head>
+  <body>
+    <header>  
+      {% for x in bike%}
+      <h1>Book Your Motorbike of {{x[2]}}</h1>
+    </header>
+    <a href="/home"><button class="back">Go Back</button></a>
+    <main>
+    <div style="display: block; ">
+        <div class="bikemodel">
+          <img src="{{ url_for('uploaded_file', filename=x[3]) }}" alt="bike"  >
+  <div class="form-div">
+          <form  id="myForm"  onsubmit="return validateForm()" method="post" action="/booking">
+            <label for="bike" class="bike-label">{{x[2]}}</Label>
+              <input type="hidden" name="id" >
+              <input type="hidden" name="booking-id">
+            <input type="text" value="{{x[2]}}" name="bikename" readonly hidden>
+            <input type="text" value="successful" name="status" readonly hidden>
+
+
+            <input type="number" id="result" name="price" readonly hidden>
+         
+          <label for="time" style="font-weight: bold;">Duration</label>
+          
+            
+              <select id="time" name="duration"  onpointerleave="calculatePrice(); information();" style="font-weight: bold;">
+                
+      
+  
+      <option value="12">12 hrs</option>
+      <option selected value="24">1 day</option>
+      <option value="48">2 day</option>
+      <option value="72">3 day</option>
+      <option value="96">4 day</option>
+      <option value="120">5 day</option>
+      <option value="144">6 day</option>
+      <option value="168">1 week</option>
+      <option value="336">2 weeks</option>
+      <option value="504">3 weeks</option>
+      <option value="720">1 month</option>
+      </select>
+      <br><br>
+<br><br><br><br>
+     <!-- <div class="form-div" style=" position:relative;  ">
+      <label for="paymentMethod" style="margin-left: -180% ;">Payment Method:</label>
+      <label for="paymentMethod1" style="margin-left: -150% ;display: inline-block;">Online payment</label>
+      <input type="radio" style="margin-left: -150% ; " id="paymentMethod1" name="paymentMethod" value="creditCard">
+       -->
+      <!-- <input type="radio" id="paymentMethod2" name="paymentMethod" value="cash">
+      <label for="paymentMethod2">Cash on Delivery</label> -->
+      </div>
+      <input type="rate" id="rate"  value="{{x[6]}}" style="display:none;">
+        
+      <!-- <div id="creditCardInfo" style="display: none;">
+        <div>
+         
+<div class="row">
+  <div class="col-75">
+    <div class="container">
+       <form action="/updatebooking" method="post"> 
+      <input type="hidden" name="paymentid" >
+        <div class="row">
+          <div class="col-50">
+            <h3>Billing Address</h3>
+            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+            <input type="text" id="fname" name="fullname" placeholder=" Your Full Name" required>
+            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+            <input type="email" id="email" name="email" placeholder="name@example.com" required>
+
+ <label for="email"><i class="fa fa-envelope"></i>Aadhar Numberl</label>
+            <input type="text" id="email" name="aadhar" placeholder="111122223333" required maxlength="12" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+
+ <label for="email"><i class="fa fa-envelope"></i> Driving Licence Number</label>
+            <input type="text" id="email" name="driving" placeholder="KA0520200000000" required maxlength="15">
+           
+           
+            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+            <input type="text" id="adr" name="address" placeholder="lalbag main gate ">
+            <label for="city"><i class="fa fa-institution"></i> City</label>
+
+
+            <select id="cityList" name="city" class="container" style="background-color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  font-size: 15px;">
+              <option value="Delhi">Delhi</option>
+              <option value="Mumbai">Mumbai</option>
+              <option selected value="Bangalore">Bangalore</option>
+              <option value="Hyderabad">Hyderabad</option>
+              <option value="Ahmedabad">Ahmedabad</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Kolkata">Kolkata</option>
+              <option value="Surat">Surat</option>
+              <option value="Pune">Pune</option>
+              <option value="Jaipur">Jaipur</option>
+              <option value="other">Other</option>
+            </select>
+            <input type="text" id="cityInput" style="display: none;background-color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  font-size: 15px;">
+           
+            <input type="text" id="city" name="city" placeholder="New York"> 
+<br><br>
+            <div class="row">
+              <div class="col-50">
+                <label for="state">State</label>
+                <select name="state" id="list" class="container" style="background-color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  font-size: 15px;">
+                  <option value="">Select State</option>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                  <option value="Assam">Assam</option>
+                  <option value="Bihar">Bihar</option>
+                  <option value="Chhattisgarh">Chhattisgarh</option>
+                  <option value="Goa">Goa</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Himachal Pradesh">Himachal Pradesh</option>
+                  <option value="Jharkhand">Jharkhand</option>
+                  <option selected value="Karnataka">Karnataka</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Manipur">Manipur</option>
+                  <option value="Meghalaya">Meghalaya</option>
+                  <option value="Mizoram">Mizoram</option>
+                  <option value="Nagaland">Nagaland</option>
+                  <option value="Odisha">Odisha</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Rajasthan">Rajasthan</option>
+                  <option value="Sikkim">Sikkim</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Tripura">Tripura</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Uttarakhand">Uttarakhand</option>
+                  <option value="West Bengal">West Bengal</option>
+                </select>
+
+                <input type="text" id="state" name="state" placeholder="NY"> 
+              </div>
+              <div class="col-50">
+                <label for="zip">Zip</label>
+                <input type="text" id="zip" name="zip" placeholder="560001" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-50">
+            <h3>Payment</h3>
+            <label for="fname">Accepted Cards</label>
+            <div class="icon-container">
+              <i class="fa fa-cc-visa" style="color:navy;"></i>
+              <i class="fa fa-cc-amex" style="color:blue;"></i>
+              <i class="fa fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa fa-cc-discover" style="color:orange;"></i>
+            </div>
+            <label for="cname">Name on Card</label>
+            <input type="text" id="cname" name="cardname" placeholder="Mueez Ur Rahman" required>
+            <label for="ccnum">Credit card number</label>
+            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required maxlength="16" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+            <label for="expmonth">Exp Month</label>
+            <!-- <input type="text" id="expmonth" name="expmonth" placeholder="February"> 
+            <select name="expmonth" id="expmonth" class="container" style="background-color: white;">
+              
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+             
+              
+            </select>
+
+            <br><br>
+            <div class="row">
+              <div class="col-50">
+                <label for="expyear">Exp Year</label>
+                <!-- <input type="text" id="expyear" name="expyear" placeholder="2030">
+                <select id="expyear" name="expyear" class="container" style="background-color: white; width: 100%;">
+                  <option value="2018">2018</option>
+                  <option value="2019">2019</option>
+                  <option value="2020">2020</option>
+                  <option value="2021">2021</option>
+                  <option value="2022">2022</option>
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                  <option value="2029">2029</option>
+                  <option selected value="2030">2030</option>
+                  <option value="2031">2031</option>
+                  <option value="2032">2032</option>
+                  <option value="2033">2033</option>
+                  <option value="2034">2034</option>
+                  <option value="2035">2035</option>
+                  <option value="2036">2036</option>
+                  <option value="2037">2037</option>
+                  <option value="2038">2038</option>
+                  <option value="2039">2039</option>
+                  <option value="2040">2040</option>
+                  <option value="2041">2041</option>
+                  <option value="2042">2042</option>
+                  <option value="2043">2043</option>
+                  <option value="2044">2044</option>
+                  <option value="2045">2045</option>
+                  <option value="2046">2046</option>
+                  <option value="2047">2047</option>
+                  <option value="2048">2048</option>
+                  <option value="2049">2049</option>
+                  <option value="2050">2050</option>
+                </select>
+              </div>
+              <div class="col-50">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" placeholder="352" required maxlength="3" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <!-- <label>
+          <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+        </label>
+        -->
+      
+    <!-- </div>
+  </div>
+        </div> -->
+  
+        <!-- <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" name="cardNumber">
+        <label for="expiryDate">Expiry Date:</label>
+        <input type="text" id="expiryDate" name="expiryDate">
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" name="cvv"> 
+      </div>
+       -->
+      <script src="/static/js/payment.js"></script>
+      
+      
+      <br><br>
+    <label for="rate">Rate (in Rupees):</label>
+    <br><br>
+    <!-- <button type="button" onclick="calculatePrice()">Calculate Price</button> -->
+    <button class="button1" type="submit" id="result" onclick="return confirmSubmit()" ><p id="value">RENT</p></button>
+          </form>
+          </div>
+  </div>
+</div>
+  <br>    
+  <div class="About-session" style="width: 20%;">
+    <h3 class="h3-session">About Bike</h3>
+    <hr>
+    <h4>Bike Name</h4>
+    <p>{{x[2]}}</p>
+    <hr>
+    <h4>Bike Type</h4>
+    <p>{{x[4]}}</p>
+    <hr>
+    <h4>Bike CC</h4>
+    <p>{{x[8]}}</p>
+    <hr>
+    <h4>Fuel Type</h4>
+    <p>{{x[7]}}</p>
+    <hr>
+    <h4>Model</h4>
+    <p>{{x[10]}}</p>
+    <hr>
+    <h4 for="inputText">Bike Company</h4>
+    <input type="text" value="{{x[11]}}" id="inputText" hidden readonly>
+    <p id="outputText"></p>
+    <script>
+      run();
+      function run() {
+        var inputBox = document.getElementById("inputText");
+        var outputBox = document.getElementById("outputText");
+        var inputValue = inputBox.value;
+        var uppercaseValue = inputValue.toUpperCase();
+        outputBox.textContent = uppercaseValue;
+      }
+    </script>
+    <hr>
+    <h4>Accessories</h4>
+    <ul class="ul-session">
+      <li class="li-session"><p>Helmet: {{x[12]}}</p></li>
+      <li class="li-session"><p>Extra Batteries: {{x[13]}}</p></li>
+      <li class="li-session"><p>Extra Space: {{x[14]}}</p></li>
+      <li class="li-session"><p>Gadgets: {{x[15]}}</p></li>
+    </ul>
+    <hr>
+  </div>
+
+  <h3>Brief Detaisl of {{x[2]}}</h3>
+  <div style="display: block; content: attr(20px);">
+  <li> {{x[9]}}</li>
+</div>
+          </main>
+{% endfor %}
+          <!-- <script src="/static/js/bike.js"></script>
+  <script>
+    var upr = document.getElementById('upper').value;
+    upr =
+  </script> -->
+          <footer>
+  <P> @Copyright by Bikers Dream</P>
+          </footer>
+          </body>
+          </html>

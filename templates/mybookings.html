@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Motorbike Booking Confirmation</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/confirmation.css">
+  </head>
+  <body>
+    <header>
+      <h1>Booking Confirmation</h1>
+    </header>
+
+    <main>
+
+      {% if data %}
+            <a href="/home"> <button class="shopping" style="font-size: small; float: left; position: fixed; top: 5%;">Home</button>  </a>
+
+      {% for row in data %}
+
+      <!-- <a href="/delete:">Close booking</a> -->
+      <div class="confirmation-box">
+        <h2>Your Motorbike Booking Details:</h2>
+        <p><b>Bike :</b> <span id="bike-model">{{row.3}}</span></p>
+        <p><b>Duration:</b> <span id="duration">{{row.6}}</span> Hour(s)</p>
+        <p><b>Amount:</b> <span id="amount">{{row.8}}</span></p>
+        <!-- <p><b>Transaction ID:</b> <span id="transaction-id">{{row.6}}</span></p> -->
+        <p><b>Transaction ID:</b> <span id="booking-id">{{row.10 }}</span></p>
+        <p><b>Booking Status:</b> <span id="booking-status">{{row.9}}</span></p>
+        {% if row.9 == "pending" %}
+  <a href="/pendingpayment/{{ row.2 }}"> <button class="pending" >Payment Pending</button></a>
+{% else %}
+  <!-- Do nothing or display an alternative content if the condition is not met -->
+  <a href="{{ url_for('invoice', book= row[2], bike=row[3]) }}" target="_blank" class="btn3"><button class="invoice" > Create Invoice</button></a>
+{% endif %}
+
+        <a href="/deletebooking/{{row.0}}" onclick="return confirm('Are You Sure For Delete?')"> <button class="shopping3" >Delete</button></a>
+      </div>
+       {% endfor %}
+{% else %}
+        <h3 class="shopping1">You havent booked anything yet </h3>
+        <a href="/home" style="background-color: rgb(226, 122, 43); text-decoration: none;"> <button class="shopping"> Go to Our Fleet</button></a>
+{% endif %}
+     
+
+      
+    </main>
+    <footer>
+      <p>@Copyright by Bikers Dream</p>
+    </footer>
+
+    <style>.shopping {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+  color: #fff;
+  background-color: #ff6a00;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.5s;
+}
+.shopping1 {
+ 
+        font-size: 4em;
+        font-family: sans-serif;
+        background: linear-gradient(to right, #e27b2d, #4A00E0);
+        -webkit-background-clip: text;
+        text-align: center;
+        -webkit-text-fill-color: transparent;
+        animation: smooth-gradient 5s infinite;
+      }
+
+      /* Animate the gradient colors */
+      @keyframes smooth-gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+.shopping:hover {
+  background-color: #0047ab;
+  cursor: pointer;
+}
+
+.pending {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #fa0000;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.pending:hover {
+  background-color: #ad0202;
+}
+
+
+
+
+.invoice {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.invoice:hover {
+  background-color: #3e8e41;
+}
+
+
+
+.shopping3 {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #000000;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.shopping3:hover {
+  background-color: gray;
+  color: azure;
+}
+
+.shopping3:active {
+  background-color: #135023;
+}
+
+
+</style>
+    <script>
+      // fetch the data from backend and update the values in the HTML
+      //  {% for row in booking %}
+      // const bikeModel = "{{row.4}}";
+      // document.getElementById("bike-model").innerHTML = bikeModel;
+      // const duration = 2;
+      // document.getElementById("duration").innerHTML = duration;
+      // const amount = 4000;
+      // document.getElementById("amount").innerHTML = amount;
+      // const transactionID = "TX123456789";
+      // document.getElementById("transaction-id").innerHTML = transactionID;
+      // const bookingID = "BK123456789";
+      // document.getElementById("booking-id").innerHTML = bookingID;
+      // const bookingStatus = "confirmed";
+      // document.getElementById("booking-status").innerHTML = bookingStatus;
+      // {% endfor %}
+    </script>
+  </body>
+</html>

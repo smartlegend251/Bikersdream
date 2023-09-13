@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Addup</title>
+
+
+  
+</head>
+<body>
+
+    <form action="/upload" method="post" enctype="multipart/form-data"  onsubmit ="generateNumber()">
+   
+</form>
+
+
+<style>body {
+  font-family: Arial, sans-serif;
+  background-color: #f1f1f1;
+}
+
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #333;
+  color: #fff;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input[type="submit"] {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+/* Additional Styles */
+
+#numberInput {
+  background-color: #f2f2f2;
+  border: none;
+  font-weight: bold;
+}
+
+.highlight {
+  border: 2px solid #4caf50;
+}
+
+/* Optional: Add some spacing and center the form */
+form {
+  margin-top: 50px;
+}
+
+/* Optional: Add responsiveness */
+@media (max-width: 600px) {
+  form {
+    max-width: 400px;
+  }
+}
+  </style>
+
+<script> function generateNumber() {
+    var generatedNumber = Math.floor(10000 + Math.random() * 90000);
+    document.getElementById('numberInput').value = generatedNumber;
+  }
+</script>
+
+</body>
+</html>

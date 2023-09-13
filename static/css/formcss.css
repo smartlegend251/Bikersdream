@@ -1,0 +1,113 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #317aaa3e;
+  }
+  
+  .container {
+    display: block;
+    align-items: left;
+    /* margin-left: -200px;
+    padding-right: 200px; */
+  }
+  
+  
+  .drop-area,.preview{
+    position: fixed;
+    
+  }
+  
+  
+  .drop-area {
+  
+    left: 5%;
+    top:10%;
+    border: 2px dashed #000000;
+    padding: 30px;
+    text-align: center;
+    background-color: #208dc389;
+    align-items: left;
+  }
+  
+  .drop-area h1 {
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .drop-area p {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  .preview {
+    display: none;
+    left: 7%;
+    top:40%;
+    margin-left: 20px;
+  
+  
+  }
+  
+  #previewImage {
+    background-color: rgba(0, 0, 0, 0.101);
+    padding: 10px;
+    max-width: 200px;
+    max-height: 200px;
+  }
+  
+  table {
+    margin-top: 300px;
+    background-color: #0086bb7a;
+  }
+  
+  th,
+  td {
+    padding: 10px;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+    background-color: lightyellow;
+  }
+
+  nav{
+    padding: 20px; border-color: black; color: white; position: fixed; top: 0%; left: 2%  ;
+                                
+}
+  
+.anchor{
+    text-decoration: none; color: white; background-color: black; padding: 10px 50px 10px 50px; border-radius: 20%;
+}
+
+  input[type="submit"] {
+    width: auto;
+    padding: 8px 20px;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
+  th[colspan="2"] {
+    background-color: #f2f2f2;
+  }
+  

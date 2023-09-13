@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/editform.css">
+    <title>Bike Form</title>
+    <style>
+
+        a{
+            text-decoration: none;
+            color: white;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        fieldset {
+            margin: 20px auto;
+            width: 80%;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        th {
+            background-color: #f0f0f0;
+        }
+        
+        img {
+            max-width: 200px;
+            max-height: 150px;
+        }
+        
+        .no-content {
+            text-align: center;
+            margin: 20px;
+        }
+        
+        .delete-button {
+            display: inline-block;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 3px;
+        }
+        
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+        
+        /* Navigation bar styles */
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        
+        .navbar a {
+            float: left;
+            color: #fff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        
+        .active {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a  href="{{ url_for('adminmain')}}">Admin Panel</a>
+        <a href="{{url_for('form')}}">Bike Form Admin Panel</a>
+        <a class="active"href="{{url_for('bikeprofile')}}">Bike Form Bike info</a>
+    </div>
+
+    <h1>Bike</h1>
+    <fieldset>
+        <legend>Add Bike</legend>
+        <!-- <form action="/addbike" method="post"> -->
+            <input type="number" name="bid" hidden>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>ID</th>
+                        <th>Bike ID</th>
+                        <th>Name</th>
+                        <th>Bike Type</th>
+                        <th>Availability</th>
+                        <th>Rate</th>
+                        <th>Fuel Type</th>
+                        <th>Bike CC</th>
+                        <th>Model</th>
+                        <th>BS1</th>
+                        <th>BS2</th>
+                        <th>BS3</th>
+                        <th>BS4</th>
+                        <th>BS5</th>
+                        <th>Edit / Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if bike %}
+                        {% for item in bike %}
+                            <tr>
+                                <td><img src="{{ url_for('uploaded_file', filename=item[3]) }}" alt="Bike Image"></td>
+                                <td>{{ item[0] }}</td>
+                                <td>{{ item[1] }}</td>
+                                <td>{{ item[2] }}</td>
+                                <td>{{ item[4] }}</td>
+                                <td>{{ item[5] }}</td>
+                                <td>{{ item[6] }}</td>
+                                <td>{{ item[7] }}</td>
+                                <td>{{ item[8] }}</td>
+                                <td>{{ item[10] }}</td>
+                                <td>{{ item[11] }}</td>
+                                <td>{{ item[12] }}</td>
+                                <td>{{ item[13] }}</td>
+                                <td>{{ item[14] }}</td>
+                                <td>{{ item[15] }}</td>
+
+                                <td>     
+                                   <a href="#" id="openButton"> <button >Open Form</button></a>
+                                    <!-- <button class="delete-button"><a href="{{url_for('updatebike', data=item[0])}}">Edit</a></button> -->
+                                    /
+                                    <button class="delete-button"><a href="{{url_for('deletebike', data=item[0])}}">Delete</a></button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="16" class="no-content">No content Registered</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        <!-- </form> -->
+    </fieldset>
+
+    <div id="popupForm" class="popup">
+        <form>
+            <div>
+                <label for="numberInput">Bike ID:</label>
+                <input type="text" id="numberInput" name="unique_id" readonly>
+            </div>
+            <div>
+                <label for="name">Bike Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div>
+                <label for="types">Bike Type:</label>
+                <select name="types" id="types" required>
+                    <option value="">--Select--</option>
+                    <option value="sport">Sport Bike</option>
+                    <option value="cruiser">Cruiser</option>
+                    <option value="touring">Touring</option>
+                    <option value="naked">Naked Bike</option>
+                    <option value="dual_sport">Dual Sport</option>
+                    <option value="adventure">Adventure Bike</option>
+                    <option value="scooter">Scooter</option>
+                    <option value="moped">Moped</option>
+                    <option value="off_road">Off-Road</option>
+                    <option value="electric">Electric Bike</option>
+                </select>
+            </div>
+            <div>
+                <label for="availability">Availability:</label>
+                <select name="availability" id="availability">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div>
+                <label for="rate">Bike Rate (per Hour):</label>
+                <input type="number" id="rate" name="rate" value="50" max="500">
+            </div>
+            <div>
+                <label for="fuel">Bike Fuel Type:</label>
+                <select name="fueltype" id="fuel">
+                    <option value="Petrol">Petrol</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Electric">Electric</option>
+                </select>
+            </div>
+            <div>
+                <label for="bike_cc">Bike Displacement CC:</label>
+                <select name="bike_cc" id="bike_cc">
+                    <option value="100">100 cc</option>
+                    <option value="125">125 cc</option>
+                    <option selected value="150">150 cc</option>
+                    <option value="200">200 cc</option>
+                    <option value="250">250 cc</option>
+                    <option value="300">300 cc</option>
+                    <option value="350">350 cc</option>
+                    <option value="400">400 cc</option>
+                    <option value="450">450 cc</option>
+                    <option value="500">500 cc</option>
+                    <option value="600">600 cc</option>
+                    <option value="750">750 cc</option>
+                    <option value="900">900 cc</option>
+                    <option value="1000">1000 cc</option>
+                    <option value="1200">1200 cc</option>
+                    <option value="1300">1300 cc</option>
+                    <option value="1400">1400 cc</option>
+                    <option value="1500">1500 cc</option>
+                </select>
+            </div>
+            <div>
+                <label for="model">Bike Model:</label>
+                <select name="model" id="model">
+                    <option value="2010">2010</option>
+                    <option value="2011">2011</option>
+                    <option value="2012">2012</option>
+                    <option value="2013">2013</option>
+                    <option value="2014">2014</option>
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021" selected>2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="1990">1990</option>
+                    <option value="1991">1991</option>
+                    <option value="1992">1992</option>
+                    <option value="1993">1993</option>
+                    <option value="1994">1994</option>
+                    <option value="1995">1995</option>
+                    <option value="1996">1996</option>
+                    <option value="1997">1997</option>
+                    <option value="1998">1998</option>
+                    <option value="1999">1999</option>
+                    <option value="2000">2000</option>
+                    <option value="2001">2001</option>
+                    <option value="2002">2002</option>
+                    <option value="2003">2003</option>
+                    <option value="2004">2004</option>
+                    <option value="2005">2005</option>
+                    <option value="2006">2006</option>
+                    <option value="2007">2007</option>
+                    <option value="2008">2008</option>
+                    <option value="2009">2009</option>
+                </select>
+            </div>
+            <div>
+                <label for="bs1">Bike Company:</label>
+                <select name="bs1" id="bs1" required>
+                    <option value="">--select--</option>
+                    <option value="honda">Honda</option>
+                    <option value="yamaha">Yamaha</option>
+                    <option value="suzuki">Suzuki</option>
+                    <option value="kawasaki">Kawasaki</option>
+                    <option value="harley_davidson">Harley-Davidson</option>
+                    <option value="bmw">BMW</option>
+                    <option value="ducati">Ducati</option>
+                    <option value="triumph">Triumph</option>
+                    <option value="kTM">KTM</option>
+                    <option value="aprilia">Aprilia</option>
+                    <option value="piaggio">Piaggio</option>
+                    <option value="royal_enfield">Royal Enfield</option>
+                    <option value="husqvarna">Husqvarna</option>
+                    <option value="mv_agusta">MV Agusta</option>
+                    <option value="zero">Zero</option>
+                    <option value="indian">Indian</option>
+                    <option value="victory">Victory</option>
+                    <option value="benelli">Benelli</option>
+                    <option value="kymco">KYMCO</option>
+                    <option value="vespa">Vespa</option>
+                    <option value="piaggio">Piaggio</option>
+                    <option value="sym">SYM</option>
+                    <option value="gogoro">Gogoro</option>
+                    <option value="others">Others</option>
+                </select>
+            </div>
+            <div>
+                <label for="bs2">Helmet (optional):</label>
+                <select name="bs2" id="bs2">
+                    <option value="">--select--</option>
+                    <option value="Helmet">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div>
+                <label for="bs3">Extra Batteries (optional):</label>
+                <select name="bs3" id="bs3">
+                    <option value="">--select--</option>
+                    <option value="Batteries">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div>
+                <label for="bs4">Extra Space (optional):</label>
+                <select name="bs4" id="bs4">
+                    <option value="">--select--</option>
+                    <option value="Extra Space">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div>
+                <label for="bs5">Gadgets (optional):</label>
+                <select name="bs5" id="bs5">
+                    <option value="">--select--</option>
+                    <option value="Gadgets">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div>
+                <label for="desc">Bike Description:</label>
+                <textarea name="desc" cols="30" rows="10" maxlength="10000" id="desc" oninput="limitTextarea(event)" required></textarea>
+                <p id="characterCount">Remaining characters: 10000</p>
+            </div>
+            <div>
+                <input type="submit" value="Create">
+            </div>
+        </form>
+
+        
+        <script src="/static/js/editform.js"></script>
+    </div>
+
+
+</body>
+</html>

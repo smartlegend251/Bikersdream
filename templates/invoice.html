@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% for x in bike %}
+    <title>{{ x[2] }}</title>
+  {% endfor %}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    #invoice {
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 20px 0;
+    }
+
+    img {
+      max-width: 200px;
+      margin-bottom: 10px;
+    }
+
+    .hide-on-print {
+      display: block;
+    }
+
+    .break {
+      display: none;
+    }
+
+    @media print {
+      body {
+        padding: 0;
+      }
+
+      .break {
+        display: block;
+      }
+
+      #invoice {
+        border: none;
+        max-width: none;
+        box-shadow: none;
+      }
+
+      h1, h2, h3 {
+        margin: 0;
+      }
+
+      hr {
+        display: block;
+      }
+
+      .hide-on-print {
+        display: none;
+      }
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      background-color: rgb(4, 197, 4);
+      color: black;
+      border: none;
+      cursor: pointer;
+      transition: 1s;
+    }
+
+    button:hover {
+      background-color: #597559;
+      color: white;
+    }
+
+    td {
+      padding: 30px;
+    }
+
+    .td {
+      background-color: rgb(255, 51, 51);
+    }
+
+    .tds {
+      background-color: yellow;
+    }
+
+    .flex-container {
+      display: flex;
+    }
+
+    .flex-item-left {
+      flex: 1;
+      margin-right: 20px;
+    }
+
+    .flex-item-right {
+      flex: 1;
+    }
+    #bikeName{
+      font-weight: bolder;
+      font-size: larger;
+    }
+
+
+
+  </style>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script> -->
+
+
+</head>
+<body>
+
+  {% for t in bike %}
+  <script>
+    function printAndSave() {
+        // Print the invoice
+        window.print();
+  
+        // Save the invoice as PDF
+         
+        // var fileName = '{{ t[2]}}_Invoice_Print ';
+        // html2pdf().from(document.body).save(fileName);
+      }
+  </script>
+  {%endfor%}
+  <div id="invoice">
+    <h1 class="hide-on-print">
+      Payment Invoice
+      <div class="hide-on-print">
+        <button onclick="printAndSave() ">Print Invoice</button>
+      </div>
+    </h1>
+
+    {% for x in data %}
+    <hr class="hide-on-print">
+    <h2>Rented</h2>
+    <h2>Invoice Number: <span id="invoiceNumber">{{ x[2] }}</span></h2><br>
+    <h2>Transaction ID: <span id="transactionNumber">{{ x[10] }}</span></h2>
+    <hr>
+    <div id="bikeInfo" class="flex-container">
+      <div class="flex-item-left">
+        {% for b in bike %}
+        <img src="{{ url_for('uploaded_file', filename=b[3]) }}" alt="Bike Image">
+        <h3><span id="bikeName">{{ x[3] }}</span></h3>
+        {% endfor %}
+      </div>
+      <div class="flex-item-right">
+        {% for h in bike %}
+        <h3>Bike Type: <span id="totalHours">{{ h[4] }}</span></h3>
+        <div class="break"><br></div>
+        <h3>Fuel Type: <span id="totalHours">{{ h[7] }}</span></h3>
+        <div class="break"><br></div>
+        <h3>Displacement: <span id="totalHours">{{ h[8] }} CC</span></h3>
+        <div class="break"><br></div>
+        <h3>Model: <span id="totalHours">{{ h[10] }}</span></h3>
+        <div class="break"><br></div>
+        <h3>Company: <span id="totalHours">{{ h[11] }}</span></h3>
+        <div class="break"><br></div>
+        <h3>Items: <span id="totalHours">{{ h[12] }} {{ h[13] }} {{ h[14] }} {{ h[15] }} {{ h[16] }}</span></h3><br><br>
+        {% endfor %}
+      </div>
+    </div>
+    <table border="1">
+      <tr>
+        <td class="tds">
+          <h3>From: <span id="fromLocation">{{ x[4] }}</span></h3>
+        </td>
+        <td class="tds">
+          <h3>To: <span id="toLocation">{{ x[5] }}</span></h3>
+        </td>
+        <td class="tds">
+          <h3>Total Hours: <span id="totalHours">{{ x[6] }} H</span></h3>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" class="td">
+          <h2>Total Amount Paid: <span id="totalAmountPaid" style="float: right;">₹ {{ x[8] }}</span></h2>
+        </td>
+      </tr>
+    </table>
+    <hr>
+    {% endfor %}
+    <hr class="hide-on-print">
+  </div>
+</body>
+</html>

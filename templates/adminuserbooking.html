@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	
+<head>
+	<link rel="stylesheet" href="/static/css/navebar.css">
+	
+	<title>Booking List</title>
+	<style>
+		table {
+			font-family: Arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+			margin-bottom: 20px;
+			color: white;
+			background-color: ;
+		}
+
+		td, th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+
+		.button {
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			padding: 5px 10px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 14px;
+			margin: 2px;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+
+		.button-edit {
+			background-color: #4CAF50;
+		}
+
+		.button-delete {
+			background-color: #f44336;
+		}
+		body{
+			text-decoration: white;
+		}
+	</style>
+</head>
+<body>
+
+	<style>
+		.navbar {
+				 background-color: #333;
+				 overflow: hidden;
+				 font-family: sans-serif;}
+			 
+			 .navbar a {
+				 float: left;
+				 color: #fff;
+				 /* text-align: center; */
+				 padding: 11px 11px;
+				 text-decoration: none;
+				 font-size: 17px;
+			 }
+			 
+			 .navbar a:hover {
+				 background-color: #ddd;
+				 color: black;
+			 }
+			 
+			 .active {
+				 background-color: #4CAF50;
+				 color: white;
+			 }
+			 #admin{
+			  border-right: 4px solid rgb(255, 255, 255);
+			 }
+			 .floatright{
+			  float: right; 
+			 }
+	
+			 .leftcome{
+				margin-left: -835px;
+			 }
+			 .leftcome a{
+				margin-left: 0px;
+				float: left;
+			 }
+	 </style>
+	   <div class="navbar">
+		 <a  id="admin" href="{{ url_for('adminmain')}}" >Admin Panel</a>
+		 <div class="leftcome">
+		 <a     href="/userdetails" >Admin Panel</a>
+		 
+		 <a href="{{url_for('form')}}">Bike Form Admin Panel</a>
+		 <a href="{{url_for('bikeprofile')}}">Bike Form Bike info</a>
+		</div>
+		 <div class="floatright">
+		  <a href="/logout">Logout</a>
+		 </div>
+	 </div>
+	 
+	 
+	<h1 style="color: white;">Booking List</h1>
+	<table>
+		<thead>
+			<tr style="background-color: #f44336;">
+				<th>ID</th>
+				<th>Booking ID</th>
+				<th>Bike Name</th>
+				<th>Hours</th>
+				<!-- <th>Price</th> -->
+				<th>Aadhar</th>
+				<th>Driving Licence</th>
+				<th>Price</th>
+				<th>Status</th>
+
+				<th>Action</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+            {% for row in data %}
+			<tr style="background-color: black;">
+				<td style="color: white;">{{ row.1 }}</td>
+				<td style="color: white;">{{ row.0 }}</td>
+				<td style="color: white;">{{ row.2 }}</td>
+				<td style="color: white;">{{ row.3 }}</td>
+				<!-- <td style="color: white;">{{ row.4 }}</td> -->
+				<td style="color: white;">{{ row.19 }}</td>
+				<td style="color: white;">{{ row.20 }}</td>
+
+				<td style="color: white;">{{ row.4 }}</td>
+
+				<td style="color: white;">{{ row.5 }}</td>
+
+
+				<td>
+					<!-- <button class="button button-edit">Edit</button> -->
+					 <a href="/deletebookings/{{row.0}}" onclick="return confirm('Are You Sure For Delete?')"> <button class="button button-delete" >Delete</button></a>
+
+					<!-- <button class="">Delete</button> -->
+				</td>
+			</tr>
+			{%endfor %}
+		</tbody>
+	</table>
+	<style>body{
+                        background-image: linear-gradient(rgba(0, 0, 0, 0.029), rgba(0, 0, 0, 0)), url({{url_for('static', filename="/images/display1.jpeg")}});
+						background-size: cover;
+ 					    background-position: center;
+ 						height: 100vh;
+						
+                        
+                    }</style>
+</body>
+</html>

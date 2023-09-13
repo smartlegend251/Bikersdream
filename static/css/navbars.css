@@ -1,0 +1,26 @@
+nav {
+  background-color: rgb(135, 39, 39);
+  height: 25px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.admin-link {
+  font-weight: bold;
+}
+
+.admin-link:hover {
+  text-decoration: underline;
+}
+
+nav a:hover:not(.admin-link) {
+  background-color: white;
+  color: red;
+}

@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>Login Form Design</title>
+        <link rel="stylesheet"  href="../static/css/style0.css" type="text/css">
+        <body>
+            <div class="signupbox">
+                <img src="../static/login.png" class="login">
+                <h1>Sign-Up Here</h1>
+                <form action="" method="post">
+                    <p>Enter Full Name</p>
+                    <input type="text" name="fullname" placeholder="Enter Full Name" required>
+                    <p>Enter Username</p>
+                    <input type="text" name="username" placeholder="Enter User Name"required>
+                    <p>Enter Password</p>
+                    <input type="password" id="password" name="password" placeholder="Example@123" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?=.*\w).{8,}">
+                    <p>Enter Your Driving Licence</p>
+                    <input type="text" name="dl" placeholder=" KA01 0123456789">
+                    <p>Enter Your Aadhar Number</p>
+                    <input type="text" name="an" placeholder="1234-5678-9123">
+                    
+		<!-- <p>Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one special character.</p> -->
+
+		<!-- <label for="confirm-password">Confirm password:</label> -->
+                    <!-- <input type="password" name="password" placeholder="Enter password 8-16" required> -->
+                    
+                    <input type="Submit" name="" value="Sign Up">
+                    <a href="/Login"><p>Already Have Account?</p>Login</a><br>
+                    <a href="/">Go Back?</a>
+                    
+                
+
+
+
+
+                </form>
+                
+            </div>
+                  <style>
+                    body{
+                        background-image: url({{url_for('static', filename="bg/background.jpg")}});
+                    }
+
+                </style>
+        </body>
+    </head>
+</html>

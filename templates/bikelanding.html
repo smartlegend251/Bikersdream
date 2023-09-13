@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Motorbike Booking</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/booking.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/payment.css">
+    <style>
+      .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        z-index: 9999;
+        text-align: center;
+      }
+  
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+      }
+  
+      .loading {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border: 4px solid #ccc;
+        border-top-color: #333;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+  
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+   <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var popup = document.querySelector('.popup');
+        var overlay = document.querySelector('.overlay');
+        var button = document.getElementById('popupButton');
+        var form = document.getElementById('myForm');
+  
+        button.addEventListener('click', function() {
+          popup.style.display = 'block';
+          overlay.style.display = 'block';
+          setTimeout(function() {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+            form.submit();
+          }, 5000);
+        });
+      });
+
+
+      function confirmAndGenerateNumber() {
+  if (confirm('Are You Sure For Continue booking ')) {
+    generateNumber();
+  }
+}
+    </script>
+  </head>
+  <body>
+    <header>  
+      {% for x in bike%}
+      <h1>Book Your Motorbike of {{x[2]}}</h1>
+    </header>
+    <a href="/home"><button class="back">Go Back</button></a>
+    <main>
+    <div style="display: block; ">
+        <div class="bikemodel">
+          <img src="{{ url_for('uploaded_file', filename=x[3]) }}" alt="bike"  >
+  <div class="form-div">
+          <form  id="myForm"   method="post" action="/booking" >
+            <label for="bike" class="bike-label">{{x[2]}}</Label>
+              <input type="hidden" name="id" >
+              <input type="text" id="numberInput" name="bookid"  hidden>
+            <input type="text" value="{{x[2]}}" name="bikename" readonly hidden>
+            <input type="text" value="pending" name="status" readonly hidden>
+
+
+            <input type="number" id="amt" name="price" readonly hidden>
+            <input type="text" name="hour" id="hour" readonly hidden>
+           
+
+          <label for="time" style="font-weight: bold;">Duration</label>
+
+          <label for="from">From:</label>
+          <input type="datetime-local" required name="from" id="myDateTime" onchange="setNextDateTime(); resetTotalHours()" >
+          <label for="to" id="myDate2Label" style="display: none;">To:</label>
+          <input type="datetime-local" required  name="to" id="myDateTime2" onchange="calculateTotalHours()" style="display: none;" >
+
+          <br><br>
+          <!-- <button onclick="calculateTotalHours()">Calculate Total Hours</button> -->
+          <!-- <p id="totalHours"></p> -->
+          <!-- <p id="totalAmount"></p> -->
+
+
+          <script src="/static/js/timescript.js">
+          
+           
+          </script>
+          <script src="/static/js/bikeform.js"> </script>
+          
+                
+      <input type="rate" id="rate"  value="{{x[6]}}" name="rateperhour" readonly hidden>
+        
+      <!-- <div id="creditCardInfo" style="display: none;"> -->
+        <!-- <div>
+
+        <label>
+          <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+        </label>
+       
+      
+    </div> -->
+  <!-- </div> -->
+
+
+     
+      <script src="/static/js/payment.js"></script>
+      
+      
+      <br><br>
+    <label for="rate">Rate (in Rupees):</label>
+    <br><br>
+    <!-- <button type="button" onclick="calculatePrice()">Calculate Price</button> -->
+    <!-- <button class="button1" type="submit" id="popupButton"  onclick="return confirm('Are You Sure For Continue booking ')" ><p id="totalAmount">RENT</p></button> -->
+        
+  </form>
+  <button class="button1" type="submit" id="popupButton"  onclick="confirmAndGenerateNumber() " ><p id="totalAmount">RENT</p></button>
+
+
+          <div class="popup">
+            <div class="loading"></div>
+            <p>Please Wait,</p>
+              <p> Your Booking is Persuing...</p>
+          </div>
+        
+          <div class="overlay"></div>
+          </div>
+  </div>
+</div>
+  <br>    
+  <div class="About-session" style="width: 20%;">
+    <h3 class="h3-session">About Bike</h3>
+    <hr>
+    <h4>Bike Name</h4>
+    <p>{{x[2]}}</p>
+    <hr>
+    <h4>Bike Type</h4>
+    <p>{{x[4]}}</p>
+    <hr>
+    <h4>Bike CC</h4>
+    <p>{{x[8]}}</p>
+    <hr>
+    <h4>Fuel Type</h4>
+    <p>{{x[7]}}</p>
+    <hr>
+    <h4>Model</h4>
+    <p>{{x[10]}}</p>
+    <hr>
+    <h4 for="inputText">Bike Company</h4>
+    <input type="text" value="{{x[11]}}" id="inputText" hidden readonly>
+    <p id="outputText"></p>
+    <script>
+      run();
+      function run() {
+        var inputBox = document.getElementById("inputText");
+        var outputBox = document.getElementById("outputText");
+        var inputValue = inputBox.value;
+        var uppercaseValue = inputValue.toUpperCase();
+        outputBox.textContent = uppercaseValue;
+      }
+    </script>
+    <hr>
+    <h4>Accessories</h4>
+    <ul class="ul-session">
+      <li class="li-session"><p>Helmet: {{x[12]}}</p></li>
+      <li class="li-session"><p>Extra Batteries: {{x[13]}}</p></li>
+      <li class="li-session"><p>Extra Space: {{x[14]}}</p></li>
+      <li class="li-session"><p>Gadgets: {{x[15]}}</p></li>
+    </ul>
+    <hr>
+  </div>
+
+  <h3>Brief Detaisl of {{x[2]}}</h3>
+  <div style="display: block; content: attr(20px);">
+  <li> {{x[9]}}</li>
+</div>
+          </main>
+{% endfor %}
+          <!-- <script src="/static/js/bike.js"></script>
+  <script>
+    var upr = document.getElementById('upper').value;
+    upr =
+  </script> -->
+          <footer>
+  <P> @Copyright by Bikers Dream</P>
+          </footer>
+          </body>
+          </html>

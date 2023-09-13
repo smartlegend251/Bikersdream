@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/admin.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> 
+    <script src="../static/js/admin.js"></script>
+    <!-- <link rel="stylesheet" href="/static/css/navebar.css"> -->
+    <title>Admin</title>
+<style>
+.center {
+      margin: auto;
+      width: 60%;
+      padding: 10px;
+ text-decoration: white;
+}
+
+    body{
+                            color: white;
+                            text-decoration-color: aliceblue;
+
+                            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{url_for('static', filename="/images/display1.jpeg")}});
+                            background-size: cover;
+                            background-position: center;
+                            
+                            
+                            
+                        }{}
+</style>
+
+
+</head>
+<body>
+    
+  <style>
+    .navbar {
+             background-color: #333;
+             overflow: hidden;
+             font-family: sans-serif;}
+         
+         .navbar a {
+             float: left;
+             color: #fff;
+             /* text-align: center; */
+             padding: 11px 11px;
+             text-decoration: none;
+             font-size: 17px;
+         }
+         
+         .navbar a:hover {
+             background-color: #ddd;
+             color: black;
+         }
+         
+         .active {
+             background-color: #4CAF50;
+             color: white;
+         }
+         #admin{
+          border-right: 4px solid rgb(255, 255, 255);
+         }
+         .floatright{
+          float: right; 
+         }
+
+         .leftcome{
+            margin-left: -835px;
+         }
+         .leftcome a{
+            margin-left: 0px;
+            float: left;
+         }
+ </style>
+   <div class="navbar">
+     <a  id="admin" href="{{ url_for('adminmain')}}" >Admin Panel</a>
+     <div class="leftcome">
+     <a   class="active"   href="/userdetails" >Admin Panel</a>
+     
+     <a href="{{url_for('form')}}">Bike Form Admin Panel</a>
+     <a href="{{url_for('bikeprofile')}}">Bike Form Bike info</a>
+    </div>
+     <div class="floatright">
+      <a href="/logout">Logout</a>
+     </div>
+ </div>
+ 
+ 
+ 
+<!-- style="background-image: url('../static/images/wallpaperflare.com_wallpaper\ \(1\).jpg')"> -->
+    
+    <!-- <div class = addnuserModal>  -->
+        <!-- <div class="container" id="addnoteModal"> -->
+            <!-- <div class="adminpanel" allign="center"> -->
+        <div class="row">
+            
+            <div class="col-12"><br>
+          <h1 style="text-align:center; ">User Details</h1> <br><br>
+          {%with messages = get_flashed_messages()%}
+        
+          {%if messages%}
+        
+        <form action="" method="post">
+          {% for message in messages %}
+        
+          <div class="alert alert-success alert-dismissable" role="alert">
+        
+           <button type="button" class="close" data-dismiss="alert" onclick="cancelAnimationFrame" aria-label ="close">
+        
+               <span aria-hidden="true">&times;</span>
+        
+           </button>
+              {{message}}
+        
+        
+          </div>
+        
+        
+          {%endfor%}
+          {%endif%}
+          {%endwith%}
+        <div class="center">
+                    <table class="table table-wrapper" style="table-layout: auto; background:border-box; border-color: rgb(211, 25, 87);">
+                      <thead style="background-color: red;">
+                        <tr>
+                          <th scope="col" style="color: white;">User ID</th>
+                          <th scope="col"style="color: white;">Name </th>
+                          <th scope="col"style="color: white;">User Name</th>
+                          <!-- <th scope="col">Shares</th> -->
+                          <th scope="col"style="color: white;">Actions</th>  
+                        </tr>
+                                {% for row in user %}
+        
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th style="color: white;" scope="row">{{row.0}}</th>
+                          <td style="color: white;">{{row.1}}</td>
+                          <td style="color: white;">{{row.2}}
+                          <td>
+                            <!-- <a href="/editnote/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaleditnote{{row.0}}"> Edit</a> -->
+                            <a  href="/deleteuser/{{row.0}}" style="background-color: rgb(211, 25, 87);" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')"> Delete</a>
+                          </td>
+                        </tr>
+            {% endfor %}
+        </tbody>
+                    </table>
+                </form>  
+                </div>
+                </div>
+                </div>
+              </div>
+              </div>
+            </body>
+            </html>
+            
+            
+          
+        
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+   <!-- <div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+            <div class="col-lg-8 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Admin Panel</h4>
+                        <hr>
+                        
+                        <div class="table-responsive">
+                            <table id="faqs" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>User ID</th>
+                                        <th>Name</th>
+                                        <th>User Name</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in user %}
+                                    <tr>
+                                        <td><input type="text" name={{row.0}} value="{{row.0}}" class="form-control" placeholder=""></td>
+                                            <td><input type="text" name={{row.1}} value="{{row.1}}" placeholder="" class="form-control" ></td>
+                                        <td><input type="text"  name={{row.2}}  value="{{row.2}}"   placeholder="" class="form-control"></td>
+                                        <td class="mt-10"><button class="badge badge-danger"><i class="fa fa-trash"></i> Delete</button></td>
+                                    </tr>
+{% endfor %}
+                                    
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center"><button onclick="addfaqs();" class="badge badge-success"><i class="fa fa-plus"></i> ADD NEW</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+</body>
+</html>
