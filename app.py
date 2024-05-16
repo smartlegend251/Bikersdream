@@ -18,7 +18,7 @@ import socket
 app = Flask(__name__)
 
 
-
+     
 # connecting to database (xampp)
 
 app.secret_key = 'many random bytes' 
