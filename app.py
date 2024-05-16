@@ -317,8 +317,8 @@ def pendingpayment(pending):
 
 
 
-@app.route('/payments' , methods = ['POST','GET'])
-def  payment():
+@app.route('/paymentss' , methods = ['POST','GET'])
+def  payments():
 
     if 'userId' not in session:
         return redirect(url_for('login'))
@@ -407,6 +407,91 @@ def  payment():
 
     return render_template('payments.html',data = data, ida = ids, book = book, bike = bike , price = price, hour = hour  )
 
+
+@app.route('/payments', methods=['POST', 'GET'])
+def payment():
+    if 'userId' not in session:
+        return redirect(url_for('login'))
+
+    userId = session["userId"]
+    book_id = request.args.get('book')
+    book = request.args.get('book')
+    cur = mysql.connection.cursor()
+
+    # Fetch booking details
+    cur.execute("SELECT * FROM booking WHERE bookid = %s", [book_id])
+    booking_details = cur.fetchone()
+
+    # Fetch user payment data
+    cur.execute("SELECT * FROM payment WHERE uid=%s", [userId])
+    payment_data = cur.fetchall()
+
+    # Fetch user data
+    cur.execute("SELECT * FROM user WHERE userid = %s", [userId])
+    user_data = cur.fetchall()
+
+    # Close cursor for select queries
+    cur.close()
+
+    if booking_details:
+        ids = book[0]
+        bike = request.args.get('bike')
+        price = request.args.get('price')
+        hour = request.args.get('hour')
+
+    if request.method == 'POST':
+        pid = request.form['pid']
+        transactionid = request.form['transactionid']
+        cardholder = request.form['cardholder']
+        cardnumber = request.form['cardnumber']
+        expiry = request.form['expiry']
+        cvv = request.form['cvv']
+        ids = request.form['ids']
+        bike = request.form['bike']
+        book = request.form['book']
+        price = request.form['price']
+        hour = request.form['hour']
+        status = request.form['status']
+
+        cur = mysql.connection.cursor()
+
+        create_payment_table = '''
+            CREATE TABLE IF NOT EXISTS payment (
+                pid INT PRIMARY KEY AUTO_INCREMENT,
+                uid VARCHAR(100),
+                bookid VARCHAR(100),
+                transactionid VARCHAR(100),
+                cardholder VARCHAR(100),
+                cardnumber VARCHAR(100),
+                expiry VARCHAR(100),
+                cvv VARCHAR(100),
+                bike VARCHAR(100),
+                price VARCHAR(100),
+                hour VARCHAR(100),
+                status VARCHAR(100)
+            )
+        '''
+        cur.execute(create_payment_table)
+
+        update_booking = '''
+            UPDATE booking
+            SET status=%s, transactionid=%s, cardholder=%s, cardnumber=%s, expiry=%s, cvv=%s
+            WHERE bookid=%s
+        '''
+        cur.execute(update_booking, [status, transactionid, cardholder, cardnumber, expiry, cvv, book])
+
+        insert_payment = '''
+            INSERT INTO payment (pid, uid, bookid, transactionid, cardholder, cardnumber, expiry, cvv, bike, price, hour, status)
+            VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        '''
+        cur.execute(insert_payment, [userId, ids, transactionid, cardholder, cardnumber, expiry, cvv, bike, price, hour, status])
+
+        mysql.connection.commit()
+        cur.close()
+
+        return redirect(url_for('booked', bikee=bike, price=price, tid=transactionid, book=book))
+
+    return render_template('payments.html', data=user_data, ida=ids, book=book_id, bike=bike, price=price, hour=hour)
 
 
 @app.route('/booked')
